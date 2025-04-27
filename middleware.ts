@@ -1,9 +1,6 @@
-import { clerkMiddleware } from '@clerk/nextjs/server'
+import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server'
 
-export default clerkMiddleware({
-    publicRoutes: ['/',"/events/:id","/api/webhook/clerk","/api/webhook/stripe","/api/uploadthing"],
-    ignoredRoutes: ["/api/webhook/clerk","/api/webhook/stripe","/api/uploadthing"],
-})
+export default clerkMiddleware()
 
 export const config = {
   matcher: [
@@ -13,3 +10,9 @@ export const config = {
     '/(api|trpc)(.*)',
   ],
 }
+const isProtectedRoute = createRouteMatcher([
+      '/api/webhook/clerk',
+      '/api/webhook/stripe',
+      '/api/uploadthing'
+    ])
+ 
